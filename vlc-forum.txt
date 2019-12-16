@@ -1,4 +1,4 @@
-I can reproduce this issue under Windows 10 with VLC 3.0.8 Vetinari, not under MacOS. I haven't tried Linux; if someone believes this is important, I'll do. I cannot reproduce this issue with m4a/aac and ogg/opus files.
+I can reproduce this issue under Windows 10 with VLC 3.0.8 Vetinari, not under MacOS. I haven't tried Linux; if someone believes this is important, I'll do. I cannot reproduce this issue with m4a/aac and ogg/opus files (i.e. they are playing fine).
 
 Here is what I am doing:
 [list=1]
@@ -24,12 +24,30 @@ At pastebin.ubuntu.com is log of
 [list=A]
 [*] m4a playback: https://pastebin.ubuntu.com/p/gZMtXgqkx4/
 [*] mp3 playback: https://pastebin.ubuntu.com/p/fwkmrw9hjb/
-[/list]
+
 
 And I have captured some traffic with Wireshark. I have also full capture files and recorded a video from screen, however it may contain sensitive data and I am only willing to share it with developers if they agree on an NDA. The video features the Wireshark and the VLC messages window running in parallel.
 
 Here are some screenshots. The most obvious part: Much more yellow in the mp3 capture. This means the initial SMB packets/TCP packets ratio is increased. The overall number of packets in the mp3 capture is also much higher compared to the m4a.
 
+[b]Playing m4a[/b]:
+1/4
+[img]https://raw.githubusercontent.com/Rillke/public-forum-images/master/wireshark-smb-vlc-1.png[/img]
+2/4
+[img]https://raw.githubusercontent.com/Rillke/public-forum-images/master/wireshark-smb-vlc-2.png[/img]
+3/4
+[img]https://raw.githubusercontent.com/Rillke/public-forum-images/master/wireshark-smb-vlc-3.png[/img]
+4/4
+[img]https://raw.githubusercontent.com/Rillke/public-forum-images/master/wireshark-smb-vlc-4.png[/img]
 
+[b]Playing mp3[/b]:
+1/3
+[img]https://raw.githubusercontent.com/Rillke/public-forum-images/master/wireshark-smb-vlc-5-playing-mp3.png[/img]
+2/3
+[img]https://raw.githubusercontent.com/Rillke/public-forum-images/master/wireshark-smb-vlc-6-playing-mp3.png[/img]
+3/3
+[img]https://raw.githubusercontent.com/Rillke/public-forum-images/master/wireshark-smb-vlc-7-playing-mp3.png[/img]
 
-Increasing buffering durations in settings does not really help: Longer playback but also longer breaks within one title.
+Note: Increasing buffering durations in settings does not really help: Longer playback but also longer breaks within one title. Find a copy of this post on https://github.com/Rillke/public-forum-images
+
+The obvious question is: How to fix it? Should I open an issue/ticket/bug?
