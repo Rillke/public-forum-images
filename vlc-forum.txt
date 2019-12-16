@@ -1,0 +1,35 @@
+I can reproduce this issue under Windows 10 with VLC 3.0.8 Vetinari, not under MacOS. I haven't tried Linux; if someone believes this is important, I'll do. I cannot reproduce this issue with m4a/aac and ogg/opus files.
+
+Here is what I am doing:
+[list=1]
+[*]Start with new settings by moving C:\Users\someUser\AppData\Roaming\vlc to C:\Users\someUser\AppData\Roaming\vlc_old
+[*]Have a network drive at a remote location.
+[*]Have some audio files of different types (mp3, ogg/opus, m4a/aac) with approximately the same overall bitrate.
+[*]Have a connection bandwidth capable of handling the played audio files within one or two seconds when copying with Windows Explorer.
+[*]Connect to the network drive using SMB 2 via Windows Explorer (enter URL \\networkurl\share) and provide the credentials.
+[*]Drag and drop the mp3 file to the playlist.
+[*]Starting playback.
+[/list]
+
+Here is what I see (and hear):
+[list=1]
+[*]Buffering is much slower compared to ogg/opus and m4a/aac in spite of similar bitrates
+[*]Playback starts and lasts for a couple of seconds
+[*]Playback interrupts and buffering starts (very slowly again)
+[*]Playback starts and lasts for a couple of seconds
+...
+[/list]
+
+At pastebin.ubuntu.com is log of 
+[list=A]
+[*] m4a playback: https://pastebin.ubuntu.com/p/gZMtXgqkx4/
+[*] mp3 playback: https://pastebin.ubuntu.com/p/fwkmrw9hjb/
+[/list]
+
+And I have captured some traffic with Wireshark. I have also full capture files and recorded a video from screen, however it may contain sensitive data and I am only willing to share it with developers if they agree on an NDA. The video features the Wireshark and the VLC messages window running in parallel.
+
+Here are some screenshots. The most obvious part: Much more yellow in the mp3 capture. This means the initial SMB packets/TCP packets ratio is increased. The overall number of packets in the mp3 capture is also much higher compared to the m4a.
+
+
+
+Increasing buffering durations in settings does not really help: Longer playback but also longer breaks within one title.
